@@ -24,7 +24,8 @@ dependencies:
   flutter_spinkit: ^5.1.0
   google_fonts: ^4.0.3
   lottie: ^2.2.0
-  shared_preferences: ^0.5.5
+  shake_animation_widget: ^3.0.4
+  shared_preferences: ^2.0.17
   shimmer: ^2.0.0
 
 dev_dependencies:
@@ -42,3 +43,4 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/lotties/
