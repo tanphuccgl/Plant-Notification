@@ -1,0 +1,6 @@
+{
+  "appTitle": "plant_notification",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
