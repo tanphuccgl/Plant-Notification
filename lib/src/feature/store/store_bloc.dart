@@ -17,6 +17,11 @@ class StoreBloc extends Cubit<StoreState> {
   void onPageChanged(int index) =>
       emit(state.copyWith(currentPageIndex: index));
 
+  void onArrowBack() => controller.previousPage(
+      duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+  void onArrowForward() => controller.nextPage(
+      duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+
   void add(BuildContext context, WPlant value) {
     final user = context.read<AccountBloc>().state.user;
     var cancel = BotToast.showLoading();

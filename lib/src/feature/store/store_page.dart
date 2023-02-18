@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:lottie/lottie.dart';
+import 'package:plant_notification/src/widgets/button.dart';
 import '../../models/plant_model.dart';
 import 'store_bloc.dart';
 
 class StorePage extends StatelessWidget {
   const StorePage({super.key});
 
-  static const routeName = '/sample_item';
+  static const routeName = '/store_page';
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +19,15 @@ class StorePage extends StatelessWidget {
       child: BlocBuilder<StoreBloc, StoreState>(
         builder: (context, state) {
           return Scaffold(
-              appBar: AppBar(
-                title: const Text('Item Details'),
-              ),
+              appBar: AppBar(title: const Text('Store')),
               body: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {
-                            context.read<StoreBloc>().controller.previousPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOut);
-                          },
+                          onPressed: () =>
+                              context.read<StoreBloc>().onArrowBack(),
                           icon: const Icon(Icons.arrow_back)),
                       Expanded(
                         child: SizedBox(
@@ -50,38 +46,18 @@ class StorePage extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                          onPressed: () {
-                            context.read<StoreBloc>().controller.nextPage(
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeInOut);
-                          },
+                          onPressed: () =>
+                              context.read<StoreBloc>().onArrowForward(),
                           icon: const Icon(Icons.arrow_forward)),
                     ],
                   ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          )),
-                      onPressed: () => context
-                          .read<StoreBloc>()
-                          .add(context, stores[state.currentPageIndex]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.add),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Text(
-                            "ADD PLANT",
-                            style: GoogleFonts.aBeeZee(
-                                fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      ))
+                  XButton(
+                    icon: Icons.add,
+                    label: 'ADD PLANT',
+                    onPressed: () => context
+                        .read<StoreBloc>()
+                        .add(context, stores[state.currentPageIndex]),
+                  ),
                 ],
               ));
         },
