@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../models/plant_model.dart';
 import '../account/account_bloc.dart';
@@ -23,8 +24,8 @@ class StoreBloc extends Cubit<StoreState> {
       duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
 
   void add(BuildContext context, WPlant value) {
-    final user = context.read<AccountBloc>().state.user;
     var cancel = BotToast.showLoading();
+    final user = context.read<AccountBloc>().state.user;
 
     final List<WPlant> items = [...(user.plants), value];
     if (state.userNotEmpty) {

@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, _) {
           return BlocBuilder<AccountBloc, AccountState>(
+            buildWhen: (p, c) => p.plants != c.plants,
             builder: (context, acccountState) {
               return Scaffold(
                 appBar: AppBar(

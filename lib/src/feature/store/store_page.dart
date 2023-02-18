@@ -17,7 +17,9 @@ class StorePage extends StatelessWidget {
     return BlocProvider(
       create: (_) => StoreBloc(),
       child: BlocBuilder<StoreBloc, StoreState>(
+        buildWhen: (p, c) => p.currentPageIndex != c.currentPageIndex,
         builder: (context, state) {
+          final item = stores[state.currentPageIndex];
           return Scaffold(
               appBar: AppBar(title: const Text('Store')),
               body: Column(
@@ -51,13 +53,17 @@ class StorePage extends StatelessWidget {
                           icon: const Icon(Icons.arrow_forward)),
                     ],
                   ),
-                  XButton(
-                    icon: Icons.add,
-                    label: 'ADD PLANT',
-                    onPressed: () => context
-                        .read<StoreBloc>()
-                        .add(context, stores[state.currentPageIndex]),
-                  ),
+                  state.isSold(item.id)
+                      ? const XButton(
+                          icon: Icons.cancel_outlined,
+                          label: 'SOLD',
+                        )
+                      : XButton(
+                          icon: Icons.add,
+                          label: 'ADD PLANT',
+                          onPressed: () =>
+                              context.read<StoreBloc>().add(context, item),
+                        ),
                 ],
               ));
         },

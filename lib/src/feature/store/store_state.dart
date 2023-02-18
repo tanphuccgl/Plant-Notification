@@ -5,6 +5,9 @@ class StoreState extends Equatable {
   final int currentPageIndex;
   bool get userNotEmpty => UserPref().getUser() != null;
 
+  bool isSold(String id) =>
+      GetIt.I<AccountBloc>().state.plants.where((e) => e.id == id).isNotEmpty;
+
   const StoreState({this.currentPageIndex = 0});
 
   @override
