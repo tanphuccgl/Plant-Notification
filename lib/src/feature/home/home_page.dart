@@ -69,6 +69,9 @@ class HomePage extends StatelessWidget {
                                   icon: const Icon(Icons.arrow_forward)),
                             ],
                           ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
                           XButton(
                             label: 'WATER',
                             onPressed: () {},

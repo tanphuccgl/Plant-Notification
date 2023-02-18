@@ -53,6 +53,9 @@ class StorePage extends StatelessWidget {
                           icon: const Icon(Icons.arrow_forward)),
                     ],
                   ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   state.isSold(item.id)
                       ? const XButton(
                           icon: Icons.cancel_outlined,
