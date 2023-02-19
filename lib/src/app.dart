@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 
 import 'feature/account/account_bloc.dart';
 import 'feature/home/home_page.dart';
+import 'feature/notification/notification_bloc.dart';
 import 'feature/store/store_page.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
@@ -17,6 +18,8 @@ class MyApp extends StatelessWidget {
     super.key,
     required this.settingsController,
   });
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
 
   final SettingsController settingsController;
 
@@ -28,12 +31,20 @@ class MyApp extends StatelessWidget {
           return AnimatedBuilder(
             animation: settingsController,
             builder: (BuildContext context, Widget? child) {
-              return BlocProvider(
-                create: (_) => GetIt.I<AccountBloc>(),
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(
+                    create: (_) => GetIt.I<AccountBloc>(),
+                  ),
+                  BlocProvider(
+                    create: (_) => NotificationBloc(),
+                  ),
+                ],
                 child: BlocBuilder<AccountBloc, AccountState>(
                   buildWhen: (p, c) => false,
                   builder: (context, _) {
                     return MaterialApp(
+                      navigatorKey: MyApp.navigatorKey,
                       restorationScopeId: 'app',
                       localizationsDelegates: const [
                         AppLocalizations.delegate,

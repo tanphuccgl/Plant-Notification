@@ -28,6 +28,7 @@ dependencies:
   shake_animation_widget: ^3.0.4
   shared_preferences: ^2.0.17
   shimmer: ^2.0.0
+  uuid: ^3.0.7
 
 dev_dependencies:
   flutter_test:

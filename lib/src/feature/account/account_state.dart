@@ -6,8 +6,9 @@ class AccountState extends Equatable {
 
   List<WPlant> get plants => user.plants;
   bool get plantsIsEmpty => user.plants.isEmpty;
+  bool get hasOnlyOne => user.plants.length == 1;
 
-  bool get userNotEmpty => UserPref().getUser() != null;
+  bool get userNotEmpty => user.id != '';
 
   const AccountState({
     required this.user,

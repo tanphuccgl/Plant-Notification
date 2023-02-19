@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:plant_notification/src/feature/account/account_bloc.dart';
 import 'package:plant_notification/src/feature/home/empty_plant_page.dart';
+import 'package:plant_notification/src/feature/notification/notification_bloc.dart';
 import 'package:plant_notification/src/widgets/button.dart';
 
 import 'home_bloc.dart';
@@ -22,7 +23,8 @@ class HomePage extends StatelessWidget {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, _) {
           return BlocBuilder<AccountBloc, AccountState>(
-            buildWhen: (p, c) => p.plants != c.plants,
+            buildWhen: (p, c) =>
+                p.user != c.user || p.plantsIsEmpty != c.plantsIsEmpty,
             builder: (context, acccountState) {
               return Scaffold(
                 appBar: AppBar(
@@ -42,10 +44,13 @@ class HomePage extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              IconButton(
-                                  onPressed: () =>
-                                      context.read<HomeBloc>().onArrowBack(),
-                                  icon: const Icon(Icons.arrow_back)),
+                              acccountState.hasOnlyOne
+                                  ? const SizedBox.shrink()
+                                  : IconButton(
+                                      onPressed: () => context
+                                          .read<HomeBloc>()
+                                          .onArrowBack(),
+                                      icon: const Icon(Icons.arrow_back)),
                               Expanded(
                                 child: SizedBox(
                                   height: 200.h,
@@ -63,19 +68,28 @@ class HomePage extends StatelessWidget {
                                           .toList()),
                                 ),
                               ),
-                              IconButton(
-                                  onPressed: () =>
-                                      context.read<HomeBloc>().onArrowForward(),
-                                  icon: const Icon(Icons.arrow_forward)),
+                              acccountState.hasOnlyOne
+                                  ? const SizedBox.shrink()
+                                  : IconButton(
+                                      onPressed: () => context
+                                          .read<HomeBloc>()
+                                          .onArrowForward(),
+                                      icon: const Icon(Icons.arrow_forward)),
                             ],
                           ),
                           SizedBox(
                             height: 20.h,
                           ),
-                          XButton(
-                            label: 'WATER',
-                            onPressed: () {},
-                            icon: Icons.water,
+                          BlocBuilder<NotificationBloc, NotificationState>(
+                            builder: (context, state) {
+                              return XButton(
+                                label: 'WATER',
+                                onPressed: () => context
+                                    .read<NotificationBloc>()
+                                    .onTapWater(),
+                                icon: Icons.water,
+                              );
+                            },
                           ),
                         ],
                       ),

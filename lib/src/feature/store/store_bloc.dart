@@ -25,11 +25,12 @@ class StoreBloc extends Cubit<StoreState> {
 
   void add(BuildContext context, WPlant value) {
     var cancel = BotToast.showLoading();
-    final user = context.read<AccountBloc>().state.user;
+    final blocAccount = GetIt.I<AccountBloc>();
+    final user = blocAccount.state.user;
 
     final List<WPlant> items = [...(user.plants), value];
     if (state.userNotEmpty) {
-      UserPref().saveUser(user.copyWith(plants: items));
+      blocAccount.updateUser(user.copyWith(plants: items));
       BotToast.showText(text: "success");
     } else {
       BotToast.showText(text: "error");
