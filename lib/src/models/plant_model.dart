@@ -1,16 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 /// A placeholder class that represents an entity or model.
 class WPlant {
-  const WPlant({required this.id, required this.image});
+  const WPlant({required this.id, required this.image,this.humidity=1.0});
 
   final String id;
   final String image;
+  final double humidity;
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'image': image,
+      'humidity':humidity,
     };
   }
 
@@ -18,12 +21,25 @@ class WPlant {
     return WPlant(
       id: map['id'],
       image: map['image'],
+      humidity:map['humidity'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory WPlant.fromJson(String source) => WPlant.fromMap(json.decode(source));
+
+  WPlant copyWith({
+    String? id,
+    String? image,
+    double? humidity,
+  }) {
+    return WPlant(
+      id: id ?? this.id,
+      image: image ?? this.image,
+      humidity: humidity ?? this.humidity,
+    );
+  }
 }
 
 List<WPlant> stores = const [
