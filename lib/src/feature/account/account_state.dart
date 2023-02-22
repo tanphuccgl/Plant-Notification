@@ -8,7 +8,7 @@ class AccountState extends Equatable {
   bool get plantsIsEmpty => user.plants.isEmpty;
   bool get hasOnlyOne => user.plants.length == 1;
 
-  bool get userNotEmpty => user.id != '';
+  bool get userNotEmpty => UserPref().getUser()!=null;
 
   const AccountState({
     required this.user,

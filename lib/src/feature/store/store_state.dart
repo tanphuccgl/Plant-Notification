@@ -3,7 +3,7 @@ part of "store_bloc.dart";
 
 class StoreState extends Equatable {
   final int currentPageIndex;
-  bool get userNotEmpty => UserPref().getUser() != null;
+  bool get userNotEmpty => GetIt.I<AccountBloc>().state.user.id != '';
 
   bool isSold(String id) =>
       GetIt.I<AccountBloc>().state.plants.where((e) => e.id == id).isNotEmpty;

@@ -16,7 +16,7 @@ class AccountBloc extends Cubit<AccountState> {
     if (state.userNotEmpty) {
       emit(state.copyWith(user: UserPref().getUser()));
     } else {
-      final newUser = WUser(id: '123', plants: []);
+      final newUser = WUser(id: '1233', plants: []);
       updateUser(newUser);
     }
   }
@@ -24,6 +24,17 @@ class AccountBloc extends Cubit<AccountState> {
   void updateUser(WUser user) {
     emit(state.copyWith(user: user));
     UserPref().saveUser(user);
+  }
+
+  void updatePlant(String idPlant, double? humidity) {
+    int index = state.user.plants.indexWhere((e) => e.id == idPlant);
+
+    List<WPlant> updatedList = List.from(state.user.plants);
+    updatedList[index] = updatedList[index].copyWith(humidity: humidity);
+
+    state.user.plants.replaceRange(index, index + 1, updatedList);
+
+    updateUser(state.user.copyWith(plants: state.user.plants));
   }
 
   remove() {}

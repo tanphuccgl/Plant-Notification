@@ -3,7 +3,7 @@ import 'dart:convert';
 
 /// A placeholder class that represents an entity or model.
 class WPlant {
-  const WPlant({required this.id, required this.image,this.humidity=1.0});
+  const WPlant({required this.id, required this.image, this.humidity = 1.0});
 
   final String id;
   final String image;
@@ -13,7 +13,7 @@ class WPlant {
     return {
       'id': id,
       'image': image,
-      'humidity':humidity,
+      'humidity': humidity,
     };
   }
 
@@ -21,7 +21,7 @@ class WPlant {
     return WPlant(
       id: map['id'],
       image: map['image'],
-      humidity:map['humidity'],
+      humidity: map['humidity'],
     );
   }
 

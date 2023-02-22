@@ -10,7 +10,7 @@ class WaterLevelState extends Equatable {
         waterLevel,
       ];
 
-      WaterLevelState copyWith({
+  WaterLevelState copyWith({
     double? waterLevel,
   }) {
     return WaterLevelState(

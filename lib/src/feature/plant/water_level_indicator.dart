@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
@@ -37,6 +35,7 @@ class _WaterLevelIndicatorState extends State<WaterLevelIndicator>
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WaterLevelBloc, WaterLevelState>(
+      buildWhen: (p, c) => p.waterLevel != c.waterLevel,
       builder: (_, state) {
         _animationController.animateTo(state.waterLevel);
 
@@ -46,8 +45,8 @@ class _WaterLevelIndicatorState extends State<WaterLevelIndicator>
           child: LiquidLinearProgressIndicator(
             value: _animationController.value,
             backgroundColor: Colors.grey[200],
-            valueColor: AlwaysStoppedAnimation(
-                Colors.lightBlueAccent.withOpacity(0.8)),
+            valueColor:
+                AlwaysStoppedAnimation(Colors.lightBlueAccent.withOpacity(0.8)),
             borderRadius: 10.0,
             direction: Axis.horizontal,
             borderColor: Colors.white,
